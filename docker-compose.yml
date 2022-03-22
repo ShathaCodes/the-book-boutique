@@ -7,7 +7,7 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: 'evax'
+      MYSQL_DATABASE: 'thebookshop'
       MYSQL_ROOT_PASSWORD: 'mdp'
     volumes:
       - ./mysql:/var/lib/mysql
