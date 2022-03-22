@@ -6,8 +6,8 @@ name: Java CI with Maven
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths-ignore:
+      - '**/README.md'
 
 jobs:
   Build-And-Test:
@@ -19,6 +19,8 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_DATABASE: thebookshop
+          MYSQL_HOST: localhost
+          MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: mdp
         ports:
         - 3306
