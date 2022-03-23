@@ -25,4 +25,4 @@ mvn clean test
 
 ### Github actions:
 
-I tried to build a pipeline to automate the tests. However, there seemes to be a problem in connecting the SpringBoot application to the mysql server. 
+I built a pipeline to run maven tests.
