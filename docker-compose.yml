@@ -8,6 +8,8 @@ services:
       - 3306:3306
     environment:
       MYSQL_DATABASE: 'thebookshop'
+      MYSQL_USER: 'shatha'
+      MYSQL_PASSWORD: 'mdp'
       MYSQL_ROOT_PASSWORD: 'mdp'
     volumes:
       - ./mysql:/var/lib/mysql
