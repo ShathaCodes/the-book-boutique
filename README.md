@@ -13,6 +13,9 @@ As part of The Software Testing Lab, We will be performing four levels of tests 
 
 ## Step 1 : Unit Tests
 
+.. image:: https://github.com/ShathaCodes/SoftwareTestingLab/actions/workflows/maven.yml/badge.svg
+    :target: https://github.com/ShathaCodes/SoftwareTestingLab/actions/workflows/maven.yml
+
 REST APIs are usually rigorously tested during integration testing. However, a good developer should test REST endpoints even before integration in their Unit Tests, since they are a vital part of the code since it's the sole access point of every entity wanting to make use of the services in the server.
 
 I used  Mockito to mock the book repository that is used in Unit Testing.
