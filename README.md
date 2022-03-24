@@ -1,5 +1,7 @@
 # Software Testing Lab
 
+[![example workflow](https://github.com/ShathaCodes/SoftwareTestingLab/actions/workflows/maven.yml/badge.svg)](https://github.com/ShathaCodes/SoftwareTestingLab/actions/workflows/maven.yml)
+
 The Book Shop is an application that manages books!
 
 The project is a CRUD web application with Spring Boot.
@@ -22,9 +24,3 @@ You can run the tests with
 ```
 mvn clean test
 ```
-
-### Github actions:
-
-[![example workflow](https://github.com/ShathaCodes/SoftwareTestingLab/actions/workflows/maven.yml/badge.svg)](https://github.com/ShathaCodes/SoftwareTestingLab/actions/workflows/maven.yml)
-
-I built a pipeline to run maven tests.
