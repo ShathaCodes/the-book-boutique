@@ -7,9 +7,19 @@ The Book Shop is an application that manages books!
 The project is a CRUD web application with Spring Boot.
 
 *** 
-As part of DevOps lab, I built a CI/Cd pipeline that builds and tests the application with maven, then build the docker image and push it to DockerHub. 
+As part of DevOps lab, I built a CI/Cd pipeline using Github actions.
 
-Next step is to deploy the application using docker-compose
+## Step 1 : Build and Test
+
+Build and Test the application with maven. I used a mysql service ( a docker image ) in order to actually build the application.
+
+## Step 2 : Package
+
+Package the application into a docker image and push it to DockerHub.
+
+## Step 3 : Deploy
+
+note : use docker-compose
 
 ***
 
