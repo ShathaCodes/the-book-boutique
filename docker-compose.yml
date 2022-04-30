@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   app:
-    build: .
+    image: shatha20/springboot
     environment:
       - spring.datasource.url=jdbc:mysql://db:3306/thebookshop?useSSL=false
     ports:
