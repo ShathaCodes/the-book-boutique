@@ -36,35 +36,35 @@ public class BookController {
 	}
 
 	@PostMapping("/create")
-	Book create(@RequestBody Book book) {
+	public Book create(@RequestBody Book book) {
 		return repository.save(book);
 
 	}
 
 	@PostMapping("/total")
-	double calculateTotal(@RequestBody Iterable<Book> books) {
+	public double calculateTotal(@RequestBody Iterable<Book> books) {
 		double total = 0;
 		for (Book book : books) {
 			total += book.getPrice();
 		}
 		return total;
 	}
-	
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	class InvalidRequestException extends RuntimeException {
+	public class InvalidRequestException extends RuntimeException {
 		public InvalidRequestException(String s) {
 			super(s);
 		}
 	}
 
 	@PutMapping()
-	Book update(@RequestBody Book book) throws InvalidRequestException {
+	public Book update(@RequestBody Book book) throws InvalidRequestException {
 
 		if (book == null) {
 			throw new InvalidRequestException("Book or ID must not be null!");
 		}
 		Optional<Book> optionalBook = repository.findById(book.getId());
-		if (optionalBook == null) {
+		if (optionalBook == null || optionalBook.isEmpty()) {
 			throw new InvalidRequestException("Book with ID " + book.getId() + " does not exist.");
 		}
 		Book existingBook = optionalBook.get();
@@ -80,9 +80,10 @@ public class BookController {
 	}
 
 	@DeleteMapping("/{id}")
-	ResponseEntity<Void> delete(@PathVariable int id) throws InvalidRequestException {
+	public ResponseEntity<Void> delete(@PathVariable int id) throws InvalidRequestException {
 
-		if (repository.findById(id) == null) {
+		Optional<Book> optionalBook = repository.findById(id);
+		if (optionalBook == null || optionalBook.isEmpty()) {
 			throw new InvalidRequestException("Book with ID " + id + " does not exist.");
 		}
 		repository.deleteById(id);

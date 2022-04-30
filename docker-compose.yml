@@ -1,6 +1,17 @@
 version: '3.4'
 
 services:
+  app:
+    build: .
+    environment:
+      - spring.datasource.url=jdbc:mysql://db:3306/thebookshop?useSSL=false
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
+    depends_on:
+      - db
+
   db:
     image: mysql:5.7
     restart: on-failure
@@ -13,6 +24,9 @@ services:
       MYSQL_ROOT_PASSWORD: 'mdp'
     volumes:
       - ./mysql:/var/lib/mysql
+    networks:
+      - app-network
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
@@ -21,3 +35,8 @@ services:
       - db
     environment:
       PMA_HOST: db
+    networks:
+      - app-network
+
+networks:
+  app-network:
