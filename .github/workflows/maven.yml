@@ -96,6 +96,8 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bookshopfront:${{ github.sha }}
 
   End-to-End-Tests:
+    needs:
+      - Package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
