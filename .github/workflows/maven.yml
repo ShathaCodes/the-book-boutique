@@ -95,4 +95,36 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bookshopfront:${{ github.sha }}
 
+  End-to-End-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo TAG=${{ github.sha }} >> .env
+          cat .env
+
+      - name: Build the stack
+        run: docker-compose up -d
+
+      - name: Cypress run
+        working-directory: ./e2e-tests
+        uses: cypress-io/github-action@v2
+
+      - name: Save video
+        uses: actions/upload-artifact@v2
+        with:
+          name: system.js.mp4
+          path: e2e-tests/cypress/videos/system.spec.js.mp4
+
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Cypress Tests
+          path: e2e-tests/cypress/results/results.xml
+          reporter: java-junit
+          fail-on-error: true
 

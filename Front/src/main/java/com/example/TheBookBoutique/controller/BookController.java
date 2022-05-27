@@ -25,7 +25,7 @@ public class BookController {
 
 	private static ArrayList<Book> init() {
 		books = new ArrayList<>();
-		final String uri = "http://localhost:8080/books/";
+		final String uri = "http://backend:8080/books/";
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Object[]> responseEntity = restTemplate.getForEntity(uri, Object[].class);
 		Object[] objects = responseEntity.getBody();
@@ -50,7 +50,7 @@ public class BookController {
 		if (result.hasErrors()) {
 			return "redirect:/books";
 		}
-		final String uri = "http://localhost:8080/books/create";
+		final String uri = "http://backend:8080/books/create";
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.postForObject(uri, book, Book.class);
 		return "redirect:/books";
@@ -59,7 +59,7 @@ public class BookController {
 
 	@RequestMapping(value = "/deleteBook", method = RequestMethod.GET)
 	public String handleDeleteBook(@RequestParam(name = "bookId") String bookId) {
-		final String uri = "http://localhost:8080/books";
+		final String uri = "http://backend:8080/books";
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.delete(uri + "/" + bookId);
 		return "redirect:/books";
@@ -68,7 +68,7 @@ public class BookController {
 	@GetMapping("/edit/{id}")
 	public String editBook(@PathVariable("id") int id, Model model) {
 		
-		final String uri = "http://localhost:8080/books/"+id;
+		final String uri = "http://backend:8080/books/"+id;
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Book> responseEntity = restTemplate.getForEntity(uri, Book.class);
 		Book editingBook = responseEntity.getBody();
@@ -85,7 +85,7 @@ public class BookController {
 			book.setId(id);
 			return "edit_book_page";
 		}
-		final String uri = "http://localhost:8080/books";
+		final String uri = "http://backend:8080/books";
 		Book editedBook = (Book) model.getAttribute("book");
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.put(uri, editedBook, Book.class);

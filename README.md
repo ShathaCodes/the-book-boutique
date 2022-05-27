@@ -49,3 +49,7 @@ Here we test the integration of different parts of the system.
 I will be using a seperate database for testing so that it won't affect the actual Database. For that, I used the Testcontainers Library.
 
 ## Step 3 : System Tests
+
+```
+node_modules/.bin/cypress run
+```
