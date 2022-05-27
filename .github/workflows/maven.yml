@@ -19,11 +19,11 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-	working-directory: ./Back
+        working-directory: ./Back
         run: mvn package install
 
       - name: Run Tests with Maven
-	working-directory: ./Back
+        working-directory: ./Back
         run: mvn test
 
       - uses: actions/upload-artifact@v1
@@ -43,7 +43,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-	working-directory: ./Front
+        working-directory: ./Front
         run: mvn package install
 
       - uses: actions/upload-artifact@v1
