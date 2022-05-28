@@ -27,7 +27,7 @@ Create a ``.env`` file with the commit SHA which will be used by the ``docker-co
 
 Build the cluster with docker-compose inside the Runner.
 
-Run the Cypress tests, save the generated video file as an artifact and processe the test results. 
+Run the Cypress tests and save the generated video file as an artifact.
 
 ### Step 4 : Deploy
 
