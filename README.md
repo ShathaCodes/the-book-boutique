@@ -45,7 +45,7 @@ As part of The Software Testing Lab, We will be performing four levels of tests 
 
 You can view the status of the tests in the pipeline or run the tests manually.
 
-## Step 1 : Unit Tests
+### Step 1 : Unit Tests
 
 In this step, I focused on testing the different actions (functions) in the BookController in the **Backend**.
 
@@ -57,7 +57,7 @@ cd Back
 mvn test
 ```
 
-## Step 2 : Integration Tests
+### Step 2 : Integration Tests
 
 Here we test the integration of different parts of the Backend.
 
@@ -71,7 +71,7 @@ cd Back
 mvn test
 ```
 
-## Step 3 : System Tests
+### Step 3 : System Tests
 
 I used Cypress to do an End-to-End test for the whole application.
 
@@ -87,6 +87,6 @@ cd e2e-tests
 npm run cypress:run
 ```
 
-## Step 4 : Acceptance Tests
+### Step 4 : Acceptance Tests
 
 I used a User Acceptance Test Template.
