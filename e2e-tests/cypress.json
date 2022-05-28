@@ -1,1 +1,7 @@
-{}
+{
+    "reporter": "junit",
+   "reporterOptions": {
+      "mochaFile": "cypress/results/results.xml",
+      "toConsole": true
+   }
+}

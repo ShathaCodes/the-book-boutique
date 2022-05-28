@@ -122,3 +122,12 @@ jobs:
           name: system.js.mp4
           path: e2e-tests/cypress/videos/system.spec.js.mp4
 
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Cypress Tests
+          path: cypress/results/results.xml
+          reporter: java-junit
+          fail-on-error: true
+
