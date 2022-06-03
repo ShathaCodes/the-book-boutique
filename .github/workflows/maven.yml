@@ -127,7 +127,7 @@ jobs:
       - name: Deploy to ec2
         uses: appleboy/ssh-action@master
         env:
-          TAG: ${{ github.sha }}
+          SHA: ${{ github.sha }}
         with:
           host: ${{ secrets.HOSTNAME  }}
           username: ${{ secrets.USERNAME }}
@@ -136,6 +136,8 @@ jobs:
           script: |
             cd SoftwareTestingLab 
             git pull 
-            echo TAG=${TAG} > .env
-            docker-compose up -d --build
+            echo "TAG=$SHA" > .env
+            echo "sha: $SHA"
+            cat .env
+            docker-compose up -d
 
