@@ -11,20 +11,11 @@ jobs:
   Deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to EC2
-        env:
-            PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
-            KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
-            HOSTNAME : ${{ secrets.HOSTNAME  }}
-            USERNAME : ${{ secrets.USERNAME  }}
-            TAG : ${{ github.sha }}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key &&
-          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts &&
-          ssh -i private_key ${USERNAME}@${HOSTNAME} &&
-          cd ~/SoftwareTestingLab &&
-          git pull &&
-          echo "done"
-        shell: bash
+      - name: Create SSH key
+        uses: appleboy/ssh-action@master
+        with:
+        host: ${{ secrets.HOSTNAME  }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.AWS_PRIVATE_KEY  }}
+        script: whoami
 
