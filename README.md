@@ -89,4 +89,7 @@ npm run cypress:run
 
 ### Step 4 : Acceptance Tests
 
-I used a User Acceptance Test Template.
+I used a User Acceptance Test Template to test two features : 
+
+- Adding a new Book
+- Reducing Book Stock
