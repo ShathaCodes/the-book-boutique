@@ -14,13 +14,16 @@ jobs:
       - name: Deploy in EC2
         env:
             PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+            KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
             HOSTNAME : ${{ secrets.HOSTNAME  }}
             USERNAME : ${{ secrets.USERNAME  }}
             TAG : ${{ github.sha }}
             
         run: |
-          echo ${PRIVATE_KEY} > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME}
+          mkdir -p ~/.ssh/
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i private_key ${USERNAME}@${HOSTNAME}
           echo "done"
           cd SoftwareTestingLab &&
           git pull &&
