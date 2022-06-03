@@ -121,6 +121,8 @@ jobs:
           
   Deploy:
     runs-on: ubuntu-latest
+    needs:
+      - End-to-End-Tests
     steps:
       - name: Deploy to ec2
         uses: appleboy/ssh-action@master
