@@ -128,17 +128,20 @@ jobs:
         uses: appleboy/ssh-action@master
         env:
           SHA: ${{ github.sha }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         with:
           host: ${{ secrets.HOSTNAME  }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY  }}
           script_stop: true
-          envs: SHA 
+          envs: SHA,MYSQL_DATABASE,MYSQL_ROOT_PASSWORD
           script: |
             cd SoftwareTestingLab 
             git pull 
             echo "TAG=$SHA" > .env
-            echo "sha: $SHA"
-            cat .env
+            echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
+            echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env
+            docker-compose down
             docker-compose up -d
 

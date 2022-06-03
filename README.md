@@ -31,13 +31,17 @@ Run the Cypress tests and save the generated video file as an artifact.
 
 ### Step 4 : Deploy
 
-Ssh into the EC2 instance with a secret key
+Ssh into the EC2 instance with a secret key. The EC2 instance has docker and docker-compose installed and its security group has an inbound rule that exposes port 9000. 
 
-Create a ``.env`` file with the commit SHA which will be used by the ``docker-compose.yml`` file to pull the newly pushed Docker images.
+Create a ``.env`` file with the commit SHA and the MySQL parameters which will be used by the ``docker-compose.yml`` file.
 
 Pull from the git repository to ensure the ``docker-compose`` file is updated.
 
 Build the cluster with ``docker-compose``.
+
+**Results**
+
+![exec](https://raw.githubusercontent.com/ShathaCodes/SoftwareTestingLab/main/results.PNG)
 
 ## Software Testing Lab
 
