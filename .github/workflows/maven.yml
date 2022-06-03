@@ -14,8 +14,8 @@ jobs:
       - name: Create SSH key
         uses: appleboy/ssh-action@master
         with:
-        host: ${{ secrets.HOSTNAME  }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.AWS_PRIVATE_KEY  }}
-        script: whoami
+          host: ${{ secrets.HOSTNAME  }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY  }}
+          script: whoami
 
