@@ -122,3 +122,26 @@ jobs:
           name: system.js.mp4
           path: e2e-tests/cypress/videos/system.spec.js.mp4
 
+
+  Deploy:
+    needs: End-to-End-Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+            HOSTNAME : ${{ secrets.HOSTNAME  }}
+            USERNAME : ${{ secrets.USERNAME  }}
+            
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
+          
+          cd /home/ubuntu/SoftwareTestingLab &&
+
+          git pull &&
+          touch .env &&
+          echo TAG=${{ github.sha }} >> .env &&
+          docker-compose up -d --build 
+
