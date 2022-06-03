@@ -132,8 +132,8 @@ jobs:
           key: ${{ secrets.AWS_PRIVATE_KEY  }}
           script_stop: true
           script: |
-          cd SoftwareTestingLab 
-          git pull 
-          echo TAG=${TAG} > .env
-          docker-compose up -d --build
+            cd SoftwareTestingLab 
+            git pull 
+            echo TAG=${TAG} > .env
+            docker-compose up -d --build
 
