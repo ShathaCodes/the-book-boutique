@@ -25,14 +25,19 @@ The images are tagged with The commit SHA.
 
 Create a ``.env`` file with the commit SHA which will be used by the ``docker-compose.yml`` file to pull the newly pushed Docker images.
 
-Build the cluster with docker-compose inside the Runner.
+Build the cluster with ``docker-compose`` inside the Runner.
 
 Run the Cypress tests and save the generated video file as an artifact.
 
 ### Step 4 : Deploy
 
-Todo
+Ssh into the EC2 instance with a secret key
 
+Create a ``.env`` file with the commit SHA which will be used by the ``docker-compose.yml`` file to pull the newly pushed Docker images.
+
+Pull from the git repository to ensure the ``docker-compose`` file is updated.
+
+Build the cluster with ``docker-compose``.
 
 ## Software Testing Lab
 

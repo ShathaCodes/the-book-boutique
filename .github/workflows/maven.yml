@@ -135,8 +135,8 @@ jobs:
             USERNAME : ${{ secrets.USERNAME  }}
             
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
+          echo ${PRIVATE_KEY} > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME}
           
           cd /home/ubuntu/SoftwareTestingLab &&
 
