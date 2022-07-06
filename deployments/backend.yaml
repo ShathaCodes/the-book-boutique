@@ -1,0 +1,54 @@
+apiVersion: apps/v1           # API version
+kind: Deployment              # Type of kubernetes resource
+metadata:
+  name: book-shop-backend    # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: book-shop-backend
+spec:
+  replicas: 1                 # No. of replicas/pods to run in this deployment
+  selector:
+    matchLabels:              # The deployment applies to any pods mayching the specified labels
+      app: book-shop-backend
+  template:                   # Template for creating the pods in this deployment
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: book-shop-backend
+    spec:                     # Spec for the containers that will be run in the Pods
+      containers:
+      - name: book-shop-backend
+        image: shatha20/bookshopback:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - name: http
+            containerPort: 8080 # The port that the container exposes
+        resources:
+          limits:
+            cpu: 0.2
+            memory: "200Mi"
+        env:                  # Environment variables supplied to the Pod
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-root-pass
+              key: password
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            secretKeyRef:
+              name: mysql-db-url
+              key: url
+---
+apiVersion: v1                # API version
+kind: Service                 # Type of the kubernetes resource
+metadata:                     
+  name: book-shop-backend    # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: book-shop-backend
+spec:                         
+  type: NodePort              # The service will be exposed by opening a Port on each node and proxying it. 
+  selector:
+    app: book-shop-backend   
+  ports:                      # Forward incoming connections on port 8080 to the target port 8080
+  - port: 8080
+    nodePort: 30000
+    protocol: TCP
+    targetPort: 8080
