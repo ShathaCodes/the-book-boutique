@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.http.HttpStatus;
 
 import com.TheBookShop.model.Book;
 import com.TheBookShop.repository.BookRepository;
+
+import org.apache.log4j.Logger;
 
 @RestController
 @RequestMapping("books")
@@ -24,6 +28,13 @@ public class BookController {
 
 	@Autowired
 	BookRepository repository;
+	
+    private static final Logger logger = Logger.getLogger(BookController.class);
+    
+    @ExceptionHandler({ IllegalArgumentException.class, IllegalStateException.class, NoHandlerFoundException.class  })
+    public void handleException() {
+    	logger.error("Path not found");
+    }
 
 	@GetMapping("")
 	public Iterable<Book> getBooks() {
@@ -54,6 +65,7 @@ public class BookController {
 	public class InvalidRequestException extends RuntimeException {
 		public InvalidRequestException(String s) {
 			super(s);
+			logger.error(s);
 		}
 	}
 

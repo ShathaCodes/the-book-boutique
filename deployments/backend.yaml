@@ -16,7 +16,7 @@ spec:
     spec:                     # Spec for the containers that will be run in the Pods
       containers:
       - name: book-shop-backend
-        image: shatha20/bookshopback:latest
+        image: shatha20/bookshopbackend:0.0.1
         imagePullPolicy: IfNotPresent
         ports:
           - name: http
@@ -24,7 +24,7 @@ spec:
         resources:
           limits:
             cpu: 0.2
-            memory: "200Mi"
+            memory: "300Mi"
         env:                  # Environment variables supplied to the Pod
         - name: SPRING_DATASOURCE_PASSWORD
           valueFrom:
@@ -44,7 +44,7 @@ metadata:
   labels:                     # Labels that will be applied to this resource
     app: book-shop-backend
 spec:                         
-  type: NodePort              # The service will be exposed by opening a Port on each node and proxying it. 
+  type: NodePort 		# The service will be exposed by opening a Port on each node and proxying it. 
   selector:
     app: book-shop-backend   
   ports:                      # Forward incoming connections on port 8080 to the target port 8080
@@ -52,3 +52,5 @@ spec:
     nodePort: 30000
     protocol: TCP
     targetPort: 8080
+    
+

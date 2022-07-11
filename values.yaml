@@ -1,0 +1,10 @@
+nodeExporter:
+  hostRootfs: false
+
+extraScrapeConfigs: |
+  - job_name: 'Spring Boot Application input'
+    scrape_interval: 30s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets:
+        - book-shop-backend.default.svc.cluster.local:8080
