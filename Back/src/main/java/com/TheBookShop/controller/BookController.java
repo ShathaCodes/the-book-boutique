@@ -1,7 +1,8 @@
 package com.TheBookShop.controller;
 
 import java.util.Optional;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import com.TheBookShop.model.Book;
 import com.TheBookShop.repository.BookRepository;
 
-import org.apache.log4j.Logger;
 
 @RestController
 @RequestMapping("books")
@@ -29,7 +29,7 @@ public class BookController {
 	@Autowired
 	BookRepository repository;
 	
-    private static final Logger logger = Logger.getLogger(BookController.class);
+	private Logger logger = LoggerFactory.getLogger(BookController.class);
     
     @ExceptionHandler({ IllegalArgumentException.class, IllegalStateException.class, NoHandlerFoundException.class  })
     public void handleException() {
@@ -38,16 +38,19 @@ public class BookController {
 
 	@GetMapping("")
 	public Iterable<Book> getBooks() {
+		logger.info("GET /books");
 		return repository.findAll();
 	}
 
 	@GetMapping("/{id}")
 	public Book getBook(@PathVariable int id) {
+		logger.info("GET /books/"+id);
 		return repository.findById(id).get();
 	}
 
 	@PostMapping("/create")
 	public Book create(@RequestBody Book book) {
+		logger.info("POST /books/create ");
 		return repository.save(book);
 
 	}
@@ -71,7 +74,7 @@ public class BookController {
 
 	@PutMapping()
 	public Book update(@RequestBody Book book) throws InvalidRequestException {
-
+		logger.info("PUT /books");
 		if (book == null) {
 			throw new InvalidRequestException("Book or ID must not be null!");
 		}
@@ -93,7 +96,7 @@ public class BookController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable int id) throws InvalidRequestException {
-
+		logger.info("DELETE /books/"+id);
 		Optional<Book> optionalBook = repository.findById(id);
 		if (optionalBook == null || optionalBook.isEmpty()) {
 			throw new InvalidRequestException("Book with ID " + id + " does not exist.");

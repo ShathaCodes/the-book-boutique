@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.TheBookShop.model.Book;
@@ -35,20 +35,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @AutoConfigureMockMvc
 public class IntegrationTest {
 
-	private static MySQLContainer mySQLContainer;
+	private static PostgreSQLContainer  postgreSQLContainer ;
 
 	@BeforeAll
 	static void init() {
-		mySQLContainer = (MySQLContainer) new MySQLContainer("mysql:5.7").withDatabaseName("test")
+		postgreSQLContainer  = (PostgreSQLContainer) new PostgreSQLContainer("postgres:12.10").withDatabaseName("test")
 				.withUsername("shatha").withPassword("pwd");
-		mySQLContainer.start();
+		postgreSQLContainer .start();
 	}
 
 	@DynamicPropertySource
 	public static void setDatasourceProperties(final DynamicPropertyRegistry registry) {
-		registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
-		registry.add("spring.datasource.password", mySQLContainer::getPassword);
-		registry.add("spring.datasource.username", mySQLContainer::getUsername);
+		registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+		registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+		registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
 	}
 
 	@Autowired

@@ -14,11 +14,14 @@ spec:
     spec:                       # Spec for the containers that will run inside the Pods
       containers:
       - name: book-shop-frontend
-        image: shatha20/bookshopfront:latest
+        image: shatha20/bookshopfront:0.0.1
         imagePullPolicy: IfNotPresent
         ports:
           - name: http
             containerPort: 9000   # Should match the Port that the container listens on
+        env:                  
+        - name: SPRING_ZIPKIN_BASE_URL
+          value: "http://tempo.monitoring:9411"
         resources:
           limits:
             cpu: 0.2

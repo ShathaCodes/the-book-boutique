@@ -16,7 +16,7 @@ spec:
     spec:                     # Spec for the containers that will be run in the Pods
       containers:
       - name: book-shop-backend
-        image: shatha20/bookshopbackend:0.0.1
+        image: shatha20/bookshopback:0.0.4
         imagePullPolicy: IfNotPresent
         ports:
           - name: http
@@ -25,17 +25,25 @@ spec:
           limits:
             cpu: 0.2
             memory: "300Mi"
-        env:                  # Environment variables supplied to the Pod
+        env:                  
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-user
+              key: user
         - name: SPRING_DATASOURCE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-root-pass
+              name: postgres-user-pass
               key: password
         - name: SPRING_DATASOURCE_URL
           valueFrom:
             secretKeyRef:
-              name: mysql-db-url
+              name: postgres-db-url
               key: url
+        - name: SPRING_ZIPKIN_BASE_URL
+          value: "http://tempo.monitoring:9411"
+            
 ---
 apiVersion: v1                # API version
 kind: Service                 # Type of the kubernetes resource
@@ -49,7 +57,6 @@ spec:
     app: book-shop-backend   
   ports:                      # Forward incoming connections on port 8080 to the target port 8080
   - port: 8080
-    nodePort: 30000
     protocol: TCP
     targetPort: 8080
     

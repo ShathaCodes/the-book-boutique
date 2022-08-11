@@ -105,8 +105,9 @@ jobs:
       - name: 'Create env file'
         run: |
           echo TAG=${{ github.sha }} > .env
-          echo "MYSQL_ROOT_PASSWORD=mdp" >> .env
-          echo "MYSQL_DATABASE=test" >> .env
+          echo "POSTGRES_USER=test" >> .env
+          echo "POSTGRES_PASSWORD=mdp" >> .env
+          echo "POSTGRES_DB=test" >> .env
       - name: Build the stack
         run: docker-compose up -d
 
@@ -121,29 +122,30 @@ jobs:
           name: system.js.mp4
           path: e2e-tests/cypress/videos/system.spec.js.mp4
           
-  Deploy:
-    runs-on: ubuntu-latest
-    needs:
-      - End-to-End-Tests
-    steps:
-      - name: Deploy to ec2
-        uses: appleboy/ssh-action@master
-        env:
-          SHA: ${{ github.sha }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-        with:
-          host: ${{ secrets.HOSTNAME  }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.AWS_PRIVATE_KEY  }}
-          script_stop: true
-          envs: SHA,MYSQL_DATABASE,MYSQL_ROOT_PASSWORD
-          script: |
-            cd SoftwareTestingLab 
-            git pull 
-            echo "TAG=$SHA" > .env
-            echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
-            echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env
-            docker-compose down
-            docker-compose up -d
-
+  #Deploy:
+  #  runs-on: ubuntu-latest
+  #  needs:
+  #    - End-to-End-Tests
+  #  steps:
+  #    - name: Deploy to ec2
+  #      uses: appleboy/ssh-action@master
+  #      env:
+  #        SHA: ${{ github.sha }}
+  #        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+  #        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+  #        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  #      with:
+  #        host: ${{ secrets.HOSTNAME  }}
+  #        username: ${{ secrets.USERNAME }}
+  #        key: ${{ secrets.AWS_PRIVATE_KEY  }}
+  #        script_stop: true
+  #        envs: SHA,POSTGRES_DB,POSTGRES_USER,POSTGRES_PASSWORD
+  #        script: |
+  #          cd SoftwareTestingLab 
+  #          git pull 
+  #          echo "TAG=$SHA" > .env
+  #          echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
+  #          echo "POSTGRES_USER=$POSTGRES_USER" >> .env
+  #          echo "POSTGRES_DB=$POSTGRES_DB" >> .env
+  #          docker-compose down
+  #          docker-compose up -d
