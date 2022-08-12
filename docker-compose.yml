@@ -34,6 +34,8 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
     volumes:
       - ./postgres:/var/lib/postgres
-
+    networks:
+      - app-network
+      
 networks:
   app-network:
