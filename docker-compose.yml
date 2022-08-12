@@ -18,6 +18,8 @@ services:
     image: "shatha20/bookshopfront:${TAG}"
     ports:
       - 9000:9000
+    environment:
+      - "backend.prefix.url=http://backend:8080"
     networks:
       - app-network
     depends_on:
