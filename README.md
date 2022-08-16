@@ -10,18 +10,18 @@ The project has a basic Frontend/Backend application with basic CRUD features. T
 
 As part of The DevOps lab, I built a CI/Cd pipeline using Github actions.
 
-### Step 1 : Build and Test
+### 1. Build and Test
 
 1.  Build and Test the backend with maven and save the generated jar file to use it later.
 2.  Build the Frontend with maven as well and save the generated jar file to use it later.
 
-### Step 2 : Package
+### 2. Package
 
 Package both the frontend and the backend seperatly into two docker images using the generated jar files and push them to DockerHub.
 
 The images are tagged with The commit SHA. 
 
-### Step 3 : End to End Tests
+### 3. End to End Tests
 
 Create a ``.env`` file with the commit SHA which will be used by the ``docker-compose.yml`` file to pull the newly pushed Docker images.
 
@@ -29,7 +29,7 @@ Build the cluster with ``docker-compose`` inside the Runner.
 
 Run the Cypress tests and save the generated video file as an artifact.
 
-### Step 4 : Deploy
+### 4. Deploy
 
 Ssh into the EC2 instance with a secret key. The EC2 instance has docker and docker-compose installed and its security group has an inbound rule that exposes port 9000. 
 
@@ -56,7 +56,7 @@ As part of The Software Testing Lab, We will be performing four levels of tests 
 
 You can view the status of the tests in the pipeline or run the tests manually.
 
-### Step 1 : Unit Tests
+### 1. Unit Tests
 
 In this step, I focused on testing the different actions (functions) in the BookController in the **Backend**.
 
@@ -68,7 +68,7 @@ cd Back
 mvn test
 ```
 
-### Step 2 : Integration Tests
+### 2. Integration Tests
 
 Here we test the integration of different parts of the Backend.
 
@@ -82,7 +82,7 @@ cd Back
 mvn test
 ```
 
-### Step 3 : System Tests
+### 3. System Tests
 
 I used Cypress to do an End-to-End test for the whole application.
 
@@ -98,7 +98,7 @@ cd e2e-tests
 npm run cypress:run
 ```
 
-### Step 4 : Acceptance Tests
+### 4. Acceptance Tests
 
 I used a User Acceptance Test Template to test two features : 
 
@@ -107,16 +107,16 @@ I used a User Acceptance Test Template to test two features :
 
 ## Observability
 
-In order to fully monitor the application, you can use this [repo](https://github.com/ShathaCodes/observability-helm-charts) which sets up a full monitroing system with a few steps.
+In order to fully monitor the application, you can use this [repo](https://github.com/ShathaCodes/observability-helm-charts) which sets up a monitoring system quickly and easily.
 
-### Logging
+### 1. Logging
 I used **Simple Logging Facade for Java (SLF4J)** to enable logging in my application. I also enabled **DispatcherServlet** logging.
 
-### Metrics
+### 2. Metrics
 I used **Spring Boot Actuator** which exposes metrics to be pulled by Prometheus. 
 Behind the hoods, Spring Boot Actuator uses Micrometer to instrument and capture different metrics from the code, such as: JVM Memory usage, CPU usage, Connection Pool information, HTTP requests and so on.
 
-### Traces
+### 3. Traces
 I used **Spring Cloud Sleuth** which provides Spring Boot auto-configuration for distributed tracing.
 I added **spring-cloud-sleuth-zipkin** so that the app will generate and report Zipkin-compatible traces via HTTP. 
 
