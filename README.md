@@ -104,3 +104,19 @@ I used a User Acceptance Test Template to test two features :
 
 - Adding a new Book
 - Reducing Book Stock
+
+## Observability
+
+In order to fully monitor the application, you can use this [repo](https://github.com/ShathaCodes/observability-helm-charts) which sets up a full monitroing system with a few steps.
+
+### Logging
+I used **Simple Logging Facade for Java (SLF4J)** to enable logging in my application. I also enabled **DispatcherServlet** logging.
+
+### Metrics
+I used **Spring Boot Actuator** which exposes metrics to be pulled by Prometheus. 
+Behind the hoods, Spring Boot Actuator uses Micrometer to instrument and capture different metrics from the code, such as: JVM Memory usage, CPU usage, Connection Pool information, HTTP requests and so on.
+
+### Traces
+I used **Spring Cloud Sleuth** which provides Spring Boot auto-configuration for distributed tracing.
+I added **spring-cloud-sleuth-zipkin** so that the app will generate and report Zipkin-compatible traces via HTTP. 
+
